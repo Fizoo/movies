@@ -1,0 +1,50 @@
+.navbar{
+  background: var(--color-background-menu);
+  color: var(--color-text-primary);
+  padding: 0;
+  flex-wrap: nowrap;
+
+  .container-fluid{
+    display: flex;
+
+    .navbar-brand{
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      padding: 0;
+      img{
+        height: 70px;
+      }
+      h2{
+        color: red ;
+      }
+    }
+
+    .navbar-collapse{
+
+      .navbar-nav{
+
+      }
+    }
+
+    .search{
+      max-width: 200px;
+      min-width: 100px;
+      margin-right: 2rem;
+      .form-control{
+        background: var(--color-background-general) ;
+        color:hsla(0, 100%, 100%, 0.88);
+        border: none;
+      }
+    }
+    .user{
+      margin-right: 1rem;
+    }
+  }
+}
+
+.dropstart .dropdown-menu[data-bs-popper] {
+  top: 160%;
+  right: -100%;
+
+}
