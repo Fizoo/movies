@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FilmService} from "../services/film.service";
-import {imgOriginal, imgW500} from "../helper/img";
-import {IDetail} from "../model/model";
-import {CreditsCast} from "../model/credits";
-import {Video, VideoResults} from "../model/video";
+import {FilmService} from "../../shared/services/film.service";
+import {imgOriginal, imgW500} from "../../shared/helper/img";
+import {IDetail} from "../../shared/model/model";
+import {CreditsCast} from "../../shared/model/credits";
+import {Video, VideoResults} from "../../shared/model/video";
 
 @Component({
   selector: 'app-film',

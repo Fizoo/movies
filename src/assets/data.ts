@@ -1,4 +1,4 @@
-import {IGenres} from "../app/components/model/model";
+import {IGenres} from "../app/components/shared/model/model";
 
 export const genres:IGenres[]=[
   {

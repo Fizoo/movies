@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import SwiperCore, {Keyboard, Mousewheel, Navigation, Pagination,} from "swiper";
-import {RootObject} from "../model/model";
-import {FilmService} from "../services/film.service";
+import {RootObject} from "../../model/model";
+import {FilmService} from "../../services/film.service";
 
 SwiperCore.use([Navigation, Pagination, Mousewheel, Keyboard]);
 

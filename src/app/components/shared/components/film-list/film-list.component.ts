@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FilmService} from "../services/film.service";
-import {RootObject} from "../model/model";
-import {genres} from "../../../assets/data";
+import {FilmService} from "../../services/film.service";
+import {RootObject} from "../../model/model";
+import {genres} from "../../../../../assets/data";
 import {Router} from "@angular/router";
 
 @Component({
