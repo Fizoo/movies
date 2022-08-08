@@ -1,0 +1,58 @@
+<div class="main">
+  <div class="banner"
+       [style.backgroundImage]="'url('+ imgOriginal +')'"></div>
+
+  <div class="mb-3 container movie-content">
+    <div class="movie-content__poster">
+      <div class="movie-content__poster__img" [style.backgroundImage]="'url('+ imgMini +')'"></div>
+    </div>
+    <div class="movie-content__info">
+      <h1 class="title">
+        {{film.title}}
+      </h1>
+      <div class="genres">
+        <span class="genres__item" *ngFor="let item of film.genres ">{{item.name}}</span>
+      </div>
+
+      <p class="overview">{{film.overview}}</p>
+
+      <div class="cast">
+        <div class="section__header">
+          <h2>Casts</h2>
+        </div>
+        <div class="casts">
+          <div *ngFor="let item of casts " class="casts__item">
+            <div class="casts__item__img" [style.backgroundImage]="'url('+ imgW500(item.profile_path) +')'"></div>
+            <p class="casts__item__name">{{item.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="container">
+    <div class="section mb-3">
+      <div class="video" *ngFor="let item of videos;let i=index " >
+        <div class="video__title">
+          <h2>{{item.name}}</h2>
+          <h2>{{videoYoutube[i]}}</h2>
+        </div>
+        <iframe width="100%" height="100%"  src="https://www.youtube.com/embed/hh"></iframe>
+        <iframe
+         [src]="videoYoutube[i]"
+          width="100%"
+          [title]="item.size"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="section mb-3">
+      <div class="section__header mb-2">
+        <h2>Similar</h2>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

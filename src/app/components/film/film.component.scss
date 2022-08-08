@@ -1,0 +1,108 @@
+@use "./src/app/scss/mixin";
+
+.banner {
+  height: 50vh;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--color-background-general),0.6);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: linear-gradient(to top, #181818, rgba(black, 0));
+  }
+}
+
+  .movie-content{
+    @include mixin.flex(flex-start,flex-start);
+    max-width: 1260px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -200px;
+    position: relative;
+    padding: 0 2rem;
+    .movie-content__poster {
+      flex: 1;
+      .movie-content__poster__img {
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          border-radius: 30px;
+          width: 300px;
+          height: 500px;
+          padding-top: 200px;
+      }
+    }
+
+    .movie-content__info {
+      width: 70%;
+      padding-left: 2rem;
+      position: relative;
+
+      & > * {
+        margin-bottom: 2rem;
+      }
+      .title {
+        font-size: 4rem;
+        line-height: 1;
+      }
+      .genres {
+        & > * ~ * {
+          margin-left: 0.5rem;
+        }
+        .genres__item {
+          padding: 0.5rem 1.5rem;
+          border: 2px solid white;
+          border-radius: 30px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          background-color: var(--color-background-general);
+        }
+      }
+      }
+  }
+
+
+.casts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+
+  gap: 10px;
+
+
+  .casts__item {
+    .casts__item__img {
+      padding-top: 150px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-bottom: 0.5rem;
+    }
+
+    .casts__item__name {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.video {
+  margin-bottom: 3rem;
+
+  &__title {
+    margin-bottom: 1.5rem;
+  }
+}

@@ -2,6 +2,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+/*
+//import '~swiper/scss';
+import '~swiper/scss/navigation';
+import '~swiper/scss/pagination';
+*/
+/*import './swiper/scss/bundle'*/
+@import '~swiper/swiper.min.css';
+@import '~swiper/modules/navigation/navigation.min.css';
+@import '~swiper/modules/pagination/pagination.min.css';
+
 :root{
   --color-background-general: #181818;
   --color-background-menu: #212121;
@@ -30,7 +40,9 @@
 body{
   font-family: 'Poppins', sans-serif;
   background: var(--color-background-general) !important;
+ // background:$color-background-general !important;
   color: var(--color-text-primary) !important;
+  width: 100vw;
 }
 
 a{

@@ -1,0 +1,38 @@
+<div class="main">
+
+  <div class="filterPage ">
+    <div class="one">
+      <button class="btn btn-secondary">All</button>
+      <button class="btn btn-secondary">Year</button>
+    </div>
+
+    <div class="two">
+      <button class="btn btn-secondary">Featured</button>
+      <button class="btn btn-secondary">popular</button>
+      <button class="btn btn-secondary">Newest</button>
+    </div>
+  </div>
+
+  <div class="film">
+    <div *ngFor="let item of list">
+      <div [appPoster]="item.poster_path" class="card" [routerLink]="['film',item.id]" >
+        <div class="poster">
+          <h5 class="year badge rounded-pill text-bg-light">2021</h5>
+          <h4 class="title ">{{item.title}}</h4>
+          <div class="genres">
+            <div class="genreItems">
+              <span *ngFor="let g of item.genre_ids"
+                    class="genre badge rounded-pill text-bg-danger">{{getGenres(g)}}</span>
+            </div>
+            <div class="imdb">
+              <span class="badge rounded-pill text-bg-warning">{{item.vote_average}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+

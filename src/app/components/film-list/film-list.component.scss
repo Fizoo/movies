@@ -1,0 +1,91 @@
+.main {
+  display: flex;
+  flex-direction: column;
+
+  .filterPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    margin: 20px 0;
+    border-radius: 10px;
+    padding: 0 10px;
+    background: var(--color-background-menu);
+
+    .one, .two {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .film {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    gap: 30px;
+    justify-content: space-between;
+    @media (max-width:1400px) {
+      justify-content: center;
+    }
+
+    .card {
+      height: 450px;
+      width: 300px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: inherit;
+      padding: 20px;
+      transition: all 1s ease;
+      border-radius: 15px;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: inset 0 0 277px 3px #a09e9c;
+        cursor: pointer;
+
+        .poster {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 100%;
+          justify-content: flex-end;
+          align-items: flex-start;
+        }
+      }
+
+      .poster {
+        display: none;
+
+        .title {
+          font-weight: bolder;
+        }
+
+        .genres {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+
+          .genreItems {
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 5px;
+            .genre{
+              font-size: 12px;
+            }
+          }
+
+          .imdb {
+            display: flex;
+            gap: 5px;
+            align-self: flex-end;
+
+          }
+
+        }
+      }
+
+
+    }
+  }
+}
