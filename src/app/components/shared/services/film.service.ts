@@ -1,18 +1,13 @@
 import {Injectable} from '@angular/core';
-
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {RootObject} from "../model/model";
+import {IResponse, RootObject} from "../model/model";
 import {Credits} from "../model/credits";
 import {Video} from "../model/video";
+import {Similar, SimilarResults} from "../model/similar";
+import {IDetail} from "../model/detail";
 
-interface IResponse {
-  page: number
-  results: RootObject[]
-  total_pages: number
-  total_results: number
 
-}
 
 @Injectable({
   providedIn: 'root'
@@ -43,16 +38,14 @@ export class FilmService {
   }
 
   getTopRated(): Observable<RootObject[]> {
-    return this.http.get<IResponse>(`${this.url}movie/top_rated${this.apikey}`).pipe(
+    this.valueUrl = 'movie/popular'
+    return this.http.get<IResponse>(this.url).pipe(
       map((el: IResponse) => el.results)
     )
   }
 
-  getDetailFilm(id: number) {
-   /* this.valueUrl = 'movie/' + String(id)
-    return this.http.get(this.url)*/
-
-    return this.http.get(`${this.baseUrl}movie/${id}${this.apikey}`)
+  getDetailFilm(id: number):Observable<IDetail> {
+    return this.http.get<IDetail>(`${this.baseUrl}movie/${id}${this.apikey}`)
   }
 
   getMovieCredits(id:number):Observable<Credits>{
@@ -62,4 +55,12 @@ export class FilmService {
   getMovieVideo(id:number):Observable<Video>{
     return this.http.get<Video>(`${this.baseUrl}movie/${id}/videos${this.apikey}`)
   }
+
+  getSimilarMovie(id: number): Observable<SimilarResults[]>{
+    return this.http.get<Similar>(`${this.baseUrl}movie/${id}/similar${this.apikey}`).pipe(
+      map((el: Similar) => el.results)
+    )
+  }
+
+ 
 }

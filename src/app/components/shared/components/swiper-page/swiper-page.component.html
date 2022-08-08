@@ -1,5 +1,4 @@
 <div class="a">
-
     <swiper
       effect="cards"
       [slidesPerView]="7"
@@ -8,18 +7,34 @@
       [pagination]="true"
       [mousewheel]="true"
       [keyboard]="true"
+      [breakpoints]="{
+                '340': {
+                  slidesPerView: 3,
+                  spaceBetween: 10
+                },
+                '640': {
+                  slidesPerView: 4,
+                  spaceBetween: 10
+                },
+                '768': {
+                  slidesPerView: 5,
+                  spaceBetween: 20
+                },
+                '1024': {
+                  slidesPerView: 6,
+                  spaceBetween: 20
+                },
+                '1400': {
+                  slidesPerView: 7,
+                  spaceBetween: 20
+                }
+                    }"
 
       class="mySwiper"
     >
       <ng-template *ngFor="let item of list" swiperSlide>
-        <img [src]="'http://image.tmdb.org/t/p/w500//'+item.poster_path" alt="">
-     <!--   <div class="info">
-         <span class="badge rounded-pill text-bg-dark">{{item.title}}</span>
-        </div>-->
+        <img [src]="'http://image.tmdb.org/t/p/w500/'+item.poster_path" [routerLink]="['film',item.id]" alt="logo photo">
       </ng-template>
-
-
-
     </swiper>
   </div>
 

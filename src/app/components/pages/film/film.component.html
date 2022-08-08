@@ -7,8 +7,8 @@
       <div class="movie-content__poster__img" [style.backgroundImage]="'url('+ imgMini +')'"></div>
     </div>
     <div class="movie-content__info">
-      <h1 class="title">
-        {{film.title}}
+      <h1 *ngIf="!!film.original_title" class="title">
+        {{film.original_title }}
       </h1>
       <div class="genres">
         <span class="genres__item" *ngFor="let item of film.genres ">{{item.name}}</span>
@@ -30,18 +30,19 @@
     </div>
 
   </div>
-  <div class="container">
+  <div class="container  mb-5">
     <div class="section mb-3">
-      <div class="video" *ngFor="let item of videos;let i=index " >
+      <div class="video" *ngFor="let item of videos">
         <div class="video__title">
-          <h2>{{item.name}}</h2>
-          <h2>{{videoYoutube[i]}}</h2>
+          <h2 >{{item.name}}</h2>
         </div>
-        <iframe width="100%" height="100%"  src="https://www.youtube.com/embed/hh"></iframe>
+
         <iframe
-         [src]="videoYoutube[i]"
+          *ngIf="!!item.key"
+          [src]="item.key|safe"
           width="100%"
-          [title]="item.size"
+          allowfullscreen
+
         ></iframe>
       </div>
     </div>
@@ -50,7 +51,45 @@
       <div class="section__header mb-2">
         <h2>Similar</h2>
       </div>
+      <div class="movie-list">
+        <swiper
+          effect="cards"
+          [slidesPerView]="7"
+          [spaceBetween]="10"
+          [navigation]="true"
+          [pagination]="true"
+          [mousewheel]="true"
+          [keyboard]="true"
+          [breakpoints]="{
+                '340': {
+                  slidesPerView: 3,
+                  spaceBetween: 10
+                },
+                '640': {
+                  slidesPerView: 4,
+                  spaceBetween: 10
+                },
+                '768': {
+                  slidesPerView: 5,
+                  spaceBetween: 20
+                },
+                '1024': {
+                  slidesPerView: 6,
+                  spaceBetween: 20
+                },
+                '1400': {
+                  slidesPerView: 7,
+                  spaceBetween: 20
+                }
+                    }"
+          class="similarSwiper"
+        >
+          <ng-template *ngFor="let item of similar" swiperSlide>
+            <img [src]="item.poster_path" alt="">
+          </ng-template>
+        </swiper>
 
+      </div>
     </div>
   </div>
 </div>

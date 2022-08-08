@@ -12,6 +12,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import {HttpClientModule} from "@angular/common/http";
 import { PosterDirective } from './components/shared/components/film-list/poster.directive';
 import { FilmComponent } from './components/pages/film/film.component';
+import { SafePipe } from './components/shared/pipes/safe.pipe';
 
 
 
@@ -24,7 +25,8 @@ import { FilmComponent } from './components/pages/film/film.component';
     FilmListComponent,
     HomePageComponent,
     PosterDirective,
-    FilmComponent
+    FilmComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

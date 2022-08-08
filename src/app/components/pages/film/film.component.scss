@@ -1,7 +1,7 @@
 @use "../../../scss/mixin";
 
 .banner {
-  height: 50vh;
+  height: 60vh;
   position: relative;
   background-position: center;
   background-size: cover;
@@ -35,8 +35,17 @@
     margin-top: -200px;
     position: relative;
     padding: 0 2rem;
+
+    @include mixin.mobile{
+      @include mixin.flex(center,center);
+    }
     .movie-content__poster {
       flex: 1;
+
+      @include mixin.mobile{
+        display: none;
+      }
+
       .movie-content__poster__img {
           background-position: center;
           background-size: cover;
@@ -57,14 +66,19 @@
         margin-bottom: 2rem;
       }
       .title {
-        font-size: 4rem;
+        font-size: 2rem;
         line-height: 1;
+        @include mixin.mobile{
+          font-size: 2.5rem;
+        }
       }
       .genres {
+        display: flex;
         & > * ~ * {
           margin-left: 0.5rem;
         }
         .genres__item {
+          height: 100%;
           padding: 0.5rem 1.5rem;
           border: 2px solid white;
           border-radius: 30px;
@@ -80,9 +94,7 @@
 .casts {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-
   gap: 10px;
-
 
   .casts__item {
     .casts__item__img {
@@ -99,10 +111,62 @@
   }
 }
 
-.video {
-  margin-bottom: 3rem;
+.section{
 
-  &__title {
-    margin-bottom: 1.5rem;
+  .video {
+    margin-bottom: 3rem;
+
+    .title {
+      margin-bottom: 1.5rem;
+
+    }
+
+    iframe {
+      height: 700px;
+    }
   }
+}
+
+
+
+.similarSwiper {
+  height: 250px;
+  position: relative;
+  .swiper-button-next:after, .swiper-button-prev:after {
+    content: '';
+  }
+  &:hover{
+    .swiper-button-next:after {
+      content: 'next';
+    }
+    .swiper-button-prev:after{
+      content: 'prev';
+    }
+  }
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+
+  /* Center slide text vertically */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 500ms ease;
+
+  &:hover{
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.swiper-slide img {
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
 }
