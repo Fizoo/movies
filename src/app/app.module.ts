@@ -13,6 +13,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { PosterDirective } from './components/shared/components/film-list/poster.directive';
 import { FilmComponent } from './components/pages/film/film.component';
 import { SafePipe } from './components/shared/pipes/safe.pipe';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -32,7 +33,9 @@ import { SafePipe } from './components/shared/pipes/safe.pipe';
     BrowserModule,
     AppRoutingModule,
     SwiperModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

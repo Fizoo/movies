@@ -2,22 +2,51 @@
 
   <div class="filterPage ">
     <div class="one">
-      <button class="btn btn-secondary">All</button>
-      <button class="btn btn-secondary">Year</button>
+      <button class="btn btn-secondary" (click)="allFilm()">All</button>
+
+      <select class="form-select  bg-secondary" [formControl]="selectYear">
+        <option selected>Year</option>
+        <option *ngFor="let item of arrYear" >{{item}}</option>
+      </select>
+
+
+      <select class="form-select  bg-secondary" [formControl]="selectGenre"  >
+        <!--<option selected>Genres</option>-->
+        <option *ngFor="let item of genres"   [ngValue]="item.id">{{item.name}}</option>
+      </select>
+
+
     </div>
 
-    <div class="two">
-      <button class="btn btn-secondary">Featured</button>
-      <button class="btn btn-secondary">popular</button>
-      <button class="btn btn-secondary">Newest</button>
+    <div class="two d-none d-md-flex">
+
+      <div class="dropdown " >
+        <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ regName}}
+        </button>
+         <ul class="dropdown-menu dropdown-menu-dark overflow-auto " >
+          <li *ngFor="let item of regions"><a class="dropdown-item " (click)="selectReg(item)">{{item.english_name}}</a></li>
+        </ul>
+      </div>
+
+      <div class="dropdown " >
+        <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ sortName }}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark overflow-auto " >
+          <li *ngFor="let item of sortArr"><a class="dropdown-item " (click)="sortBy(item)">{{item.name}}</a></li>
+        </ul>
+      </div>
+
+
     </div>
   </div>
 
   <div class="film">
     <div *ngFor="let item of list">
-      <div [appPoster]="item.poster_path" class="card" [routerLink]="['film',item.id]" >
+      <div [appPoster]="item.poster_path  " class="card" [routerLink]="['film',item.id]" >
         <div class="poster">
-          <h5 class="year badge rounded-pill text-bg-light">2021</h5>
+          <h5 class="year badge rounded-pill text-bg-light">{{item.release_date|date:'y'}}</h5>
           <h4 class="title ">{{item.title}}</h4>
           <div class="genres">
             <div class="genreItems">
@@ -33,6 +62,7 @@
     </div>
 
   </div>
+  <button (click)="load()" type="button" class="btn btn-danger ">Load</button>
 
 </div>
 

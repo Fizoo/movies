@@ -1,5 +1,5 @@
-<div class="main">
-  <div class="banner"
+<div *ngIf="!!film" class="main">
+  <div *ngIf="imgOriginal" class="banner"
        [style.backgroundImage]="'url('+ imgOriginal +')'"></div>
 
   <div class="mb-3 container movie-content">
@@ -7,7 +7,7 @@
       <div class="movie-content__poster__img" [style.backgroundImage]="'url('+ imgMini +')'"></div>
     </div>
     <div class="movie-content__info">
-      <h1 *ngIf="!!film.original_title" class="title">
+      <h1  class="title">
         {{film.original_title }}
       </h1>
       <div class="genres">
@@ -15,6 +15,22 @@
       </div>
 
       <p class="overview">{{film.overview}}</p>
+
+      <div class="star">
+        <i *ngFor="let item of vote" class="bi bi-star-fill text-danger "> </i>
+        <i *ngIf="film.vote_average<=9" class="bi bi-star-half text-danger "> </i>
+        <i *ngFor="let item of voteAll" class="bi bi-star text-danger"> </i>
+        <span class="vote">{{film.vote_average | number :'1.0-2'}}</span>
+        <span  class="vote">( {{film.vote_count}} )</span>
+      </div>
+
+      <div class="detail">
+        <h5>Date: {{film.release_date |date:'y'}}</h5>
+        <h5>Time: {{film.runtime}} min</h5>
+        <h5 *ngIf="film.budget>0">Budget : {{film.budget | currency :'USD':'symbol':'3.0'}}</h5>
+        <h5 *ngIf="film.revenue>0">WorldWide gross : {{film.revenue | currency:'USD':'symbol':'3.0'}}</h5>
+        <h5 *ngIf="film.production_companies.length>0">Studies: {{film.production_companies[0].name}}</h5>
+      </div>
 
       <div class="cast">
         <div class="section__header">
@@ -34,7 +50,7 @@
     <div class="section mb-3">
       <div class="video" *ngFor="let item of videos">
         <div class="video__title">
-          <h2 >{{item.name}}</h2>
+          <h2>{{item.name}}</h2>
         </div>
 
         <iframe
@@ -42,7 +58,6 @@
           [src]="item.key|safe"
           width="100%"
           allowfullscreen
-
         ></iframe>
       </div>
     </div>
@@ -85,7 +100,7 @@
           class="similarSwiper"
         >
           <ng-template *ngFor="let item of similar" swiperSlide>
-            <img [src]="item.poster_path" alt="">
+            <img [src]="item?.poster_path" alt="">
           </ng-template>
         </swiper>
 

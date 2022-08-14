@@ -13,6 +13,15 @@ export interface IDetail {
 	popularity: number;
 	poster_path?: any;
 	production_companies: IDetailProduction_companies[];
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  status: string;
+  tagline: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }
 export interface IDetailGenres {
 	id: number;
@@ -24,3 +33,4 @@ export interface IDetailProduction_companies {
 	name: string;
 	origin_country: string;
 }
+

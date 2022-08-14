@@ -17,13 +17,15 @@ import {IDetail} from "../../shared/model/detail";
 })
 export class FilmComponent implements OnInit {
 
-  film!:IDetail
+  film:IDetail
   imgMini:string
   imgOriginal:string
   casts:CreditsCast[]
   similar:SimilarResults[]
-  idFilm:any
+  idFilm:number
   videos:VideoResults[]
+  vote:number[]=[]
+  voteAll:any
 
 
 
@@ -37,8 +39,11 @@ export class FilmComponent implements OnInit {
 
     this.filmService.getDetailFilm(this.idFilm).subscribe((el:IDetail)=> {
       this.film = el
-      this.imgMini= imgW500(this.film.poster_path)
-      this.imgOriginal= imgOriginal(this.film.backdrop_path)
+      this.imgMini=el.poster_path? imgW500(this.film.poster_path):'https://www.beano.com/wp-content/uploads/legacy/88190_logo1-b.jpg?strip=all&quality=86&w=887'
+      this.imgOriginal=el.backdrop_path? imgOriginal(this.film.backdrop_path):'https://www.beano.com/wp-content/uploads/legacy/88190_logo1-b.jpg?strip=all&quality=86&w=887'
+      this.vote=Array(Math.floor(el.vote_average)).fill(1)
+      this.voteAll=el.vote_average<9?Array(9-Math.floor(el.vote_average)).fill(1):[]
+
     })
 
     this.filmService.getMovieCredits(this.idFilm).subscribe((el:Credits)=>{
@@ -54,6 +59,10 @@ export class FilmComponent implements OnInit {
     this.filmService.getSimilarMovie(this.idFilm).subscribe((el)=>{
       this.similar=el.map(a=>({...a,poster_path:`http://image.tmdb.org/t/p/w500/${a.poster_path}`}))
     })
+
+   // this.voteAll=Array.from(Array(this.vote.length).keys())
+
+
 
   }
 

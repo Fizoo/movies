@@ -14,8 +14,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(var(--color-background-general),0.6);
+    background-color: rgba(var(--color-background-general), 0.6);
   }
+
   &:after {
     content: "";
     position: absolute;
@@ -27,68 +28,91 @@
   }
 }
 
-  .movie-content{
-    @include mixin.flex(flex-start,flex-start);
-    max-width: 1260px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -200px;
-    position: relative;
-    padding: 0 2rem;
+.movie-content {
+  @include mixin.flex(flex-start, flex-start);
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -200px;
+  position: relative;
+  padding: 0 2rem;
 
-    @include mixin.mobile{
-      @include mixin.flex(center,center);
-    }
-    .movie-content__poster {
-      flex: 1;
-
-      @include mixin.mobile{
-        display: none;
-      }
-
-      .movie-content__poster__img {
-          background-position: center;
-          background-size: cover;
-          background-repeat: no-repeat;
-          border-radius: 30px;
-          width: 300px;
-          height: 500px;
-          padding-top: 200px;
-      }
-    }
-
-    .movie-content__info {
-      width: 70%;
-      padding-left: 2rem;
-      position: relative;
-
-      & > * {
-        margin-bottom: 2rem;
-      }
-      .title {
-        font-size: 2rem;
-        line-height: 1;
-        @include mixin.mobile{
-          font-size: 2.5rem;
-        }
-      }
-      .genres {
-        display: flex;
-        & > * ~ * {
-          margin-left: 0.5rem;
-        }
-        .genres__item {
-          height: 100%;
-          padding: 0.5rem 1.5rem;
-          border: 2px solid white;
-          border-radius: 30px;
-          font-size: 0.8rem;
-          font-weight: 600;
-          background-color: var(--color-background-general);
-        }
-      }
-      }
+  @include mixin.mobile {
+    @include mixin.flex(center, center);
   }
+
+  .movie-content__poster {
+    flex: 1;
+
+    @include mixin.mobile {
+      display: none;
+    }
+
+    .movie-content__poster__img {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 30px;
+      width: 400px;
+      height: 600px;
+      padding-top: 200px;
+    }
+  }
+
+  .movie-content__info {
+    width: 70%;
+    padding-left: 2rem;
+    position: relative;
+
+    & > * {
+      margin-bottom: 1.2rem;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: bolder;
+      line-height: 1;
+      @include mixin.mobile {
+        font-size: 2.5rem;
+      }
+    }
+
+    .genres {
+      display: flex;
+
+      & > * ~ * {
+        margin-left: 0.5rem;
+      }
+
+      .genres__item {
+        height: 100%;
+        padding: 0.5rem 1.5rem;
+        border: 2px solid white;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        background-color: var(--color-background-general);
+      }
+    }
+
+
+    .star {
+      .bi {
+        margin-right: 0.2rem;
+        font-size: 1.4rem;
+      }
+      .vote {
+        margin-left: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: bolder;
+        color: #e8e7e7;
+      }
+    }
+    .detail{
+
+  }
+  }
+}
 
 
 .casts {
@@ -98,7 +122,7 @@
 
   .casts__item {
     .casts__item__img {
-      padding-top: 150px;
+      padding-top: 125px;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -111,7 +135,7 @@
   }
 }
 
-.section{
+.section {
 
   .video {
     margin-bottom: 3rem;
@@ -128,18 +152,20 @@
 }
 
 
-
 .similarSwiper {
   height: 250px;
   position: relative;
+
   .swiper-button-next:after, .swiper-button-prev:after {
     content: '';
   }
-  &:hover{
+
+  &:hover {
     .swiper-button-next:after {
       content: 'next';
     }
-    .swiper-button-prev:after{
+
+    .swiper-button-prev:after {
       content: 'prev';
     }
   }
@@ -156,7 +182,7 @@
   align-items: center;
   transition: all 500ms ease;
 
-  &:hover{
+  &:hover {
     opacity: 0.7;
     transform: scale(1.1);
   }

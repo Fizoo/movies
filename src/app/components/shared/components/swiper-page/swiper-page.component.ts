@@ -21,6 +21,7 @@ export class SwiperPageComponent implements OnInit {
   ngOnInit(): void {
     this.filmService.getPopularFilms().subscribe((el:RootObject[])=> {
       this.list = el
+
     })
   }
 
