@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {filter, Subscription, tap} from 'rxjs';
+import {Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
+
 import {FilmService} from "../../services/film.service";
 import {IGenres, RootObject} from "../../model/model";
 import {genres} from "../../../../../assets/data/dataGenres";
-import {Router} from "@angular/router";
 import {arrDate} from "../../../../../assets/data/dataYear";
-import {FormControl} from "@angular/forms";
-import {filter, tap} from 'rxjs';
 import {regions} from "../../../../../assets/data/dataRegion";
 import {RegionResults} from "../../model/region";
 import {sortBy} from "../../../../../assets/data/dataSort";
@@ -17,7 +18,7 @@ import {SortChild} from "../../model/sort";
   templateUrl: './film-list.component.html',
   styleUrls: ['./film-list.component.scss']
 })
-export class FilmListComponent implements OnInit {
+export class FilmListComponent implements OnInit,OnDestroy {
 
   list!: RootObject[]
   tempList: RootObject[]=[]
@@ -33,6 +34,12 @@ export class FilmListComponent implements OnInit {
   selectGenre=new FormControl()
   selectRegion=new FormControl(this.regions[0].english_name)
 
+  subscriptions: Subscription[] = [];
+  aSub:Subscription
+  bSub:Subscription
+  cSub:Subscription
+  dSub:Subscription
+
 
 
   constructor(private filmService: FilmService,
@@ -41,22 +48,23 @@ export class FilmListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filmService.filmList$.subscribe(el=> {
+    this.aSub= this.filmService.filmList$.subscribe(el=> {
       this.list = [...this.tempList,...el]
     })
 
-    this.selectYear.valueChanges.pipe(
+    this.bSub=this.selectYear.valueChanges.pipe(
       filter(Boolean),
       tap(el=>this.filmService.addParams({primary_release_year:el}))).subscribe()
 
-    this.selectGenre.valueChanges.pipe(
+    this.cSub=this.selectGenre.valueChanges.pipe(
       filter(Boolean),
       tap(el=>this.filmService.addParams({with_genres:el})),).subscribe()
 
-    this.selectRegion.valueChanges.pipe(
+    this.dSub=this.selectRegion.valueChanges.pipe(
       filter(Boolean),
       tap(el=>this.filmService.addParams({region:el}))).subscribe()
 
+    this.subscriptions.push(this.aSub,this.bSub,this.cSub,this.dSub)
 
   }
 
@@ -91,5 +99,10 @@ export class FilmListComponent implements OnInit {
   sortBy(item:SortChild) {
     this.filmService.addParams({sort_by:item.fn})
     this.sortName=item.name
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub=>sub.unsubscribe())
+
   }
 }

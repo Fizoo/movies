@@ -37,8 +37,8 @@
           <h2>Casts</h2>
         </div>
         <div class="casts">
-          <div *ngFor="let item of casts " class="casts__item">
-            <div class="casts__item__img" [style.backgroundImage]="'url('+ imgW500(item.profile_path) +')'"></div>
+          <div *ngFor="let item of casts " class="casts__item" >
+            <div class="casts__item__img" [style.backgroundImage]="'url('+ imgW500(item.profile_path) +')'" [routerLink]="['/','actor',item.id]"></div>
             <p class="casts__item__name">{{item.name}}</p>
           </div>
         </div>
@@ -100,7 +100,8 @@
           class="similarSwiper"
         >
           <ng-template *ngFor="let item of similar" swiperSlide>
-            <img [src]="item?.poster_path" alt="">
+            <img [src]="item?.poster_path"  [routerLink]="['/','film',item.id]" alt="">
+            <p class="p">{{item.title}}</p>
           </ng-template>
         </swiper>
 

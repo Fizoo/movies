@@ -5,7 +5,7 @@
       <button class="btn btn-secondary" (click)="allFilm()">All</button>
 
       <select class="form-select  bg-secondary" [formControl]="selectYear">
-        <option selected>Year</option>
+        <option selected>All Years</option>
         <option *ngFor="let item of arrYear" >{{item}}</option>
       </select>
 
@@ -47,7 +47,7 @@
       <div [appPoster]="item.poster_path  " class="card" [routerLink]="['film',item.id]" >
         <div class="poster">
           <h5 class="year badge rounded-pill text-bg-light">{{item.release_date|date:'y'}}</h5>
-          <h4 class="title ">{{item.title}}</h4>
+          <h2 class="title mb-3">{{item.title}}</h2>
           <div class="genres">
             <div class="genreItems">
               <span *ngFor="let g of item.genre_ids"

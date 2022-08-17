@@ -37,12 +37,14 @@
   position: relative;
   padding: 0 2rem;
 
+
   @include mixin.mobile {
     @include mixin.flex(center, center);
   }
 
   .movie-content__poster {
     flex: 1;
+
 
     @include mixin.mobile {
       display: none;
@@ -56,6 +58,7 @@
       width: 400px;
       height: 600px;
       padding-top: 200px;
+
     }
   }
 
@@ -127,6 +130,12 @@
       background-size: cover;
       background-repeat: no-repeat;
       margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 1s ease;
+      border-radius: 5px;
+      &:hover{
+        transform: scale(1.1);
+      }
     }
 
     .casts__item__name {
@@ -178,6 +187,7 @@
   /* Center slide text vertically */
 
   display: flex;
+
   justify-content: center;
   align-items: center;
   transition: all 500ms ease;
@@ -186,6 +196,13 @@
     opacity: 0.7;
     transform: scale(1.1);
   }
+  .p{
+  position: absolute;
+    bottom: 0;
+    left: 5%;
+    font-size: 0.8rem;
+}
+
 }
 
 .swiper-slide img {
@@ -196,3 +213,5 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+

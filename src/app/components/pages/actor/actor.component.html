@@ -1,0 +1,49 @@
+<div *ngIf="!!actor" class="container">
+
+  <div class="card mb-3  ">
+    <div class="row g-0">
+      <div class="col-md-3 ">
+        <img [src]="actor.profile_path" class="card-img" alt="...">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h1 class="card-title">{{actor.name}}</h1>
+          <p class="card-text">{{actor.biography}}</p>
+          <p class="card-text">Birthday :
+            <span> {{actor.birthday |date}} </span>
+          </p>
+          <p *ngIf="!actor.deathday" class="card-text">Age: {{age}}</p>
+          <p *ngIf="!!actor.deathday" class="card-text">Deathday : <span>{{actor.deathday |date}}</span></p>
+          <p class="card-text">Place_of_birth :<span> {{actor.place_of_birth}}</span></p>
+          <p *ngIf="!!actor.homepage" class="card-text">homepage :<a [href]="actor.homepage">{{actor.homepage}} </a></p>
+          <p class="card-text">Count films: {{filmList.length}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <h2>
+    Films
+  </h2>
+
+  <div class="films">
+    <div *ngFor="let item of filmList" class="card "  [routerLink]="['/','film',item.id]">
+      <img [src]="item.poster_path"
+           [routerLink]="['/','film',item.id]"
+           class="card-img-top" alt="...">
+      <div class="card-img-overlay d-flex  justify-content-between ">
+        <h5 class="year badge rounded-pill text-bg-light align-self-start">{{item.release_date|date:'y'}}</h5>
+        <div class="align-self-start" *ngIf="item.vote_average>0">
+          <span
+            class="card-text badge rounded-pill text-bg-warning h-100 ">{{item.vote_average |  number :'1.0-1'}}</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-text ">{{item.title}}</h5>
+
+      </div>
+    </div>
+
+  </div>
+</div>
