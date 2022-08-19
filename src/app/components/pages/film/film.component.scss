@@ -104,6 +104,7 @@
         margin-right: 0.2rem;
         font-size: 1.4rem;
       }
+
       .vote {
         margin-left: 0.5rem;
         font-size: 1.2rem;
@@ -111,9 +112,10 @@
         color: #e8e7e7;
       }
     }
-    .detail{
 
-  }
+    .detail {
+
+    }
   }
 }
 
@@ -133,7 +135,8 @@
       cursor: pointer;
       transition: all 1s ease;
       border-radius: 5px;
-      &:hover{
+
+      &:hover {
         transform: scale(1.1);
       }
     }
@@ -157,6 +160,48 @@
     iframe {
       height: 700px;
     }
+  }
+
+}
+
+.section {
+  .review {
+    display: flex;
+    gap: 2rem;
+    //border: 1px solid var(--color-background-menu);
+    background: var(--color-background-menu);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+
+    .image{
+      width: 100px;
+      //padding: 1rem;
+      img{
+        width: 100%;
+       // object-fit: cover;
+        object-position: center;
+
+      }
+    }
+
+    .content{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1rem;
+      width: 100%;
+      .detail{
+        span{
+          margin-right: 1rem;
+        }
+      }
+      .det{
+        margin: 0 1rem 1rem 0 ;
+      }
+
+    }
+
   }
 }
 
@@ -196,12 +241,13 @@
     opacity: 0.7;
     transform: scale(1.1);
   }
-  .p{
-  position: absolute;
+
+  .p {
+    position: absolute;
     bottom: 0;
     left: 5%;
     font-size: 0.8rem;
-}
+  }
 
 }
 

@@ -38,7 +38,7 @@
         </div>
         <div class="casts">
           <div *ngFor="let item of casts " class="casts__item" >
-            <div class="casts__item__img" [style.backgroundImage]="'url('+ imgW500(item.profile_path) +')'" [routerLink]="['/','actor',item.id]"></div>
+            <div class="casts__item__img" [style.backgroundImage]="!!item.profile_path?'url('+ imgW500(item.profile_path) +')': 'url(\'../../../../assets/logo/logo-2.png\')'" [routerLink]="['/','actor',item.id]"></div>
             <p class="casts__item__name">{{item.name}}</p>
           </div>
         </div>
@@ -46,6 +46,7 @@
     </div>
 
   </div>
+
   <div class="container  mb-5">
     <div class="section mb-3">
       <div class="video" *ngFor="let item of videos">
@@ -106,6 +107,25 @@
         </swiper>
 
       </div>
+    </div>
+
+    <div class="section my-4">
+      <h2>Reviews</h2>
+          <div *ngFor="let item of reviews" class="review">
+            <div class="image">
+              <img class="rounded-circle" [src]="getImgRev(item.author_details.avatar_path)" alt="">
+            </div>
+              <div class="content">
+                  <div class="detail">
+                    <span>{{item.author}}</span>
+                    <span>{{item.created_at | date:'medium'}}</span>
+                  </div>
+                <div class="det">
+                 {{item.content}}
+                </div>
+
+              </div>
+          </div>
     </div>
   </div>
 </div>

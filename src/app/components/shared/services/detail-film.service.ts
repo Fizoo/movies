@@ -3,6 +3,9 @@ import {map, Observable, Subject, switchMap, tap} from 'rxjs';
 import {IDetail} from "../model/detail";
 import {HttpClient} from "@angular/common/http";
 import {Similar, SimilarResults} from "../model/similar";
+import {Review, ReviewResults} from "../model/review";
+import {Credits} from "../model/credits";
+import {Video} from "../model/video";
 
 
 @Injectable({
@@ -34,6 +37,22 @@ export class DetailFilmService {
       map((el: Similar) => el.results)
     )
   }
+
+  getReviews(id: number): Observable<ReviewResults[]> {
+    return this.http.get<Review>(`${this.baseUrl}movie/${id}/reviews`, {params: this.api_key})
+      .pipe(map((el: Review) => {
+       return  el.results
+      }))
+  }
+
+  getMovieCredits(id: number): Observable<Credits> {
+    return this.http.get<Credits>(`${this.baseUrl}movie/${id}/credits`, {params: this.api_key})
+  }
+
+  getMovieVideo(id: number): Observable<Video> {
+    return this.http.get<Video>(`${this.baseUrl}movie/${id}/videos`, {params: this.api_key})
+  }
+
 
 
 }

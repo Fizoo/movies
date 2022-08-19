@@ -2,10 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable, switchMap, tap} from "rxjs";
 import {IResponse, RootObject} from "../model/model";
-import {Credits} from "../model/credits";
-import {Video} from "../model/video";
-import {Similar, SimilarResults} from "../model/similar";
-import {IDetail} from "../model/detail";
 import {Region, RegionResults} from "../model/region";
 
 
@@ -41,10 +37,6 @@ export class FilmService {
       map((el: IResponse) => el.results),
     //  tap(el => console.log(el))
     )
-  }
-
-  getDetailFilm(id: number): Observable<IDetail> {
-    return this.http.get<IDetail>(`${this.baseUrl}movie/${id}`, {params: this.api_key})
   }
 
   searchMovie(search: string): Observable<RootObject[]> {
@@ -85,24 +77,6 @@ export class FilmService {
       map((el: IResponse) => el.results)
     )
   }
-
-
-
-  getMovieCredits(id: number): Observable<Credits> {
-    return this.http.get<Credits>(`${this.baseUrl}movie/${id}/credits`, {params: this.api_key})
-  }
-
-  getMovieVideo(id: number): Observable<Video> {
-    return this.http.get<Video>(`${this.baseUrl}movie/${id}/videos`, {params: this.api_key})
-  }
-
-  getSimilarMovie(id: number): Observable<SimilarResults[]> {
-    return this.http.get<Similar>(`${this.baseUrl}movie/${id}/similar`, {params: this.api_key}).pipe(
-      map((el: Similar) => el.results)
-    )
-  }
-
-
 
   addParams(value: any) {
     const oldParams = this.params$.getValue()
