@@ -5,24 +5,25 @@
   flex-direction: column;
 
   .filterPage {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    margin: 20px 0;
-    border-radius: 10px;
-    padding: 0 10px;
-    background: var(--color-background-menu);
+    //display: flex;
+   // justify-content: space-between;
+   // justify-content: center;
+   // align-items: center;
+    //height: 50px;
+    margin: 30px 0 10px 0;
+    font-weight: bolder;
+    //border-radius: 10px;
+   // padding: 0 10px;
+   // border-bottom: 1px solid #464545;
+   // background: var(--color-background-menu);
 
     .one, .two {
       @include mixin.flex(center,center);
-
       gap: 10px;
       select{
         height: 100%;
        max-width: 100px;
        min-width: 50px;
-       // background: #484e53;
         color: white;
         border: none;
       }
@@ -65,7 +66,6 @@
                position: absolute;
                top: 5%;
                left: 5%;
-
           }
         }
       }
@@ -90,18 +90,14 @@
               font-size: 12px;
             }
           }
-
           .imdb {
             display: flex;
             gap: 5px;
             align-self: flex-end;
 
           }
-
         }
       }
-
-
     }
   }
   .btn{

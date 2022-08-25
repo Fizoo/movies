@@ -13,6 +13,7 @@ export interface IDetail {
 	popularity: number;
 	poster_path?: any;
 	production_companies: IDetailProduction_companies[];
+  production_countries:ProductionCountries[];
   release_date: string;
   revenue: number;
   runtime: number;
@@ -34,3 +35,9 @@ export interface IDetailProduction_companies {
 	origin_country: string;
 }
 
+
+
+export interface ProductionCountries {
+	iso_3166_1: string;
+	name: string;
+}

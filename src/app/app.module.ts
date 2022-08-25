@@ -15,6 +15,9 @@ import { FilmComponent } from './components/pages/film/film.component';
 import { SafePipe } from './components/shared/pipes/safe.pipe';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ActorComponent } from './components/pages/actor/actor.component';
+import { MoviesComponent } from './components/movies/movies.component';
+import { SerialsComponent } from './components/shared/components/serials/serials.component';
+import { SeriesComponent } from './components/serial/serials/series.component';
 
 
 
@@ -29,7 +32,10 @@ import { ActorComponent } from './components/pages/actor/actor.component';
     PosterDirective,
     FilmComponent,
     SafePipe,
-    ActorComponent
+    ActorComponent,
+    MoviesComponent,
+    SerialsComponent,
+    SeriesComponent
   ],
   imports: [
     BrowserModule,

@@ -4,13 +4,9 @@ import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 
 import {FilmService} from "../../services/film.service";
-import {IGenres, RootObject} from "../../model/model";
+import {RootObject} from "../../model/model";
 import {genres} from "../../../../../assets/data/dataGenres";
-import {arrDate} from "../../../../../assets/data/dataYear";
 import {regions} from "../../../../../assets/data/dataRegion";
-import {RegionResults} from "../../model/region";
-import {sortBy} from "../../../../../assets/data/dataSort";
-import {SortChild} from "../../model/sort";
 
 
 @Component({
@@ -23,12 +19,8 @@ export class FilmListComponent implements OnInit,OnDestroy {
   list!: RootObject[]
   tempList: RootObject[]=[]
   page=1
-  arrYear=arrDate
-  genres:IGenres[]=genres
+
   regions=regions
-  regName:string='Regions'
-  sortArr=sortBy
-  sortName:string='SortBy'
 
   selectYear=new FormControl()
   selectGenre=new FormControl()
@@ -79,30 +71,7 @@ export class FilmListComponent implements OnInit,OnDestroy {
     //this.filmService.addSearchParams( {page:this.page})
   }
 
-
-  allFilm() {
-    this.tempList=[]
-    this.filmService.params$.next({})
-    this.page=1
-    this.selectGenre.reset()
-    this.selectYear.reset()
-    this.selectRegion.reset()
-    this.regName='Regions'
-  }
-
-  selectReg(reg:RegionResults){
-    this.filmService.addParams({region:reg.iso_3166_1})
-    this.regName=reg.english_name
-  }
-
-
-  sortBy(item:SortChild) {
-    this.filmService.addParams({sort_by:item.fn})
-    this.sortName=item.name
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub=>sub.unsubscribe())
-
   }
 }

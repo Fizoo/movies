@@ -23,7 +23,11 @@
     .navbar-collapse{
 
       .navbar-nav{
-
+        .nav-item{
+          .active{
+            color: #de5a5a !important;
+          }
+        }
       }
     }
 
@@ -48,3 +52,5 @@
   right: -100%;
 
 }
+
+

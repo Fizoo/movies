@@ -1,0 +1,80 @@
+<div class="main">
+  <div class="container">
+    <div class="filter">
+      <button class="btn btn-dark " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <i class="bi bi-filter"></i>
+      </button>
+
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel">Filters</h5>
+          <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+          <button type="button" class="btn-close btn-info text-bg-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body ">
+
+          <div class="dropdown " >
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ sortName}}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark overflow-auto " >
+            <li *ngFor="let item of sortArr"><a class="dropdown-item " (click)="sortBy(item)">{{item.name}}</a></li>
+          </ul>
+        </div>
+
+        <div class="dropdown  " >
+          <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ genreName }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark overflow-auto " >
+            <li *ngFor="let item of genres"><a class="dropdown-item " (click)="selectGenre(item)">{{item.name}}</a></li>
+          </ul>
+        </div>
+
+          <div class="dropdown " >
+            <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ yearName }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark overflow-auto " >
+              <li *ngFor="let item of arrYear"><a class="dropdown-item " (click)="selectYear(item)">{{item}}</a></li>
+            </ul>
+          </div>
+
+          <div class="dropdown " >
+            <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ countryName }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark overflow-auto " >
+              <li *ngFor="let item of regions"><a class="dropdown-item " (click)="selectCountry(item)">{{item.english_name}}</a></li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="film">
+      <div *ngFor="let item of list">
+        <div [appPoster]="item.poster_path " class="card" [routerLink]="['/film',item.id]" >
+          <div class="poster">
+            <h5 class="year badge rounded-pill text-bg-light">{{item.release_date|date:'y'}}</h5>
+            <h2 class="title mb-3">{{item.title}}</h2>
+            <div class="genres">
+              <div class="genreItems">
+              <span *ngFor="let g of item.genre_ids"
+                    class="genre badge rounded-pill text-bg-danger">{{getGenres(g)}}</span>
+              </div>
+              <div class="imdb">
+                <span class="badge rounded-pill text-bg-warning">{{item.vote_average}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button  type="button" class="btn btn-danger w-100 ">Load</button>
+
+
+  </div>
+</div>

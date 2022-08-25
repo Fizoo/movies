@@ -1,7 +1,6 @@
 
 export const sortBy=[
-  {name:'PopularityDown' ,fn:'popularity.desc'},
-  {name:'PopularityUp' ,fn:'popularity.asc'},
+  {name:'Popularity' ,fn:'popularity.desc'},
   {name:'dateDown' ,fn:'release_date.desc'},
   {name:'dateUp' ,fn:'release_date.asc'},
   {name:'MoneyInWorld' ,fn:'revenue.desc'},

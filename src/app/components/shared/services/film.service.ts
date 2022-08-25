@@ -24,8 +24,7 @@ export class FilmService {
 
   constructor(private http: HttpClient) {
     this.params$.pipe(
-      tap(() => {
-      }),
+      tap(() => {}),
       switchMap(params => this.getFilm(params)),
       tap(data => this.filmList$.next(data))
     ).subscribe()
@@ -39,7 +38,7 @@ export class FilmService {
     )
   }
 
-  searchMovie(search: string): Observable<RootObject[]> {
+  searchMovie(search: string,page=1): Observable<RootObject[]> {
     let param = this.api_key
     let changeUrl: string
     if (search.length > 0) {
@@ -78,11 +77,15 @@ export class FilmService {
     )
   }
 
-  addParams(value: any) {
+  addParams(value= {}) {
     const oldParams = this.params$.getValue()
     if(!!oldParams) {
       return this.params$.next({...oldParams, ...value})
     }
+  }
+
+  resetParams(){
+    return this.params$.next({})
   }
 
   addSearchParams(value: any) {

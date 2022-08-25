@@ -25,7 +25,7 @@ export class FilmComponent implements OnInit {
   imgOriginal: string
   casts: CreditsCast[]
   similar: SimilarResults[]
-  reviews: ReviewResults[]
+  reviews: ReviewResults[]=[]
   videos: VideoResults[]
   vote: number[] = []
   voteAll: any
@@ -67,11 +67,11 @@ export class FilmComponent implements OnInit {
       this.imgOriginal = data.backdrop_path ? imgOriginal(this.film.backdrop_path) : 'https://www.beano.com/wp-content/uploads/legacy/88190_logo1-b.jpg?strip=all&quality=86&w=887'
       this.vote = Array(Math.floor(data.vote_average)).fill(1)
       this.voteAll = data.vote_average < 9 ? Array(9 - Math.floor(data.vote_average)).fill(1) : []
+      console.log(data)
     })
 
-    this.detailFilmService.filmId$.subscribe(() => {
-      //  console.log('sem',el)
-    })
+    /*this.detailFilmService.filmId$.subscribe(() => {
+    })*/
 
   }
 
