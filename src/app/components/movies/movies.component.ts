@@ -39,7 +39,7 @@ export class MoviesComponent implements OnInit,OnDestroy {
      console.log(data)
    })
   }
-
+// TODO add directive for genres
   getGenres(id: number) {
     return genres.filter(el => el.id === id).map(el => el.name)
   }

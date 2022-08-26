@@ -1,35 +1,40 @@
-<div *ngIf="!!film" class="main">
-  <div  class="banner" [appPoster]="film.backdrop_path"></div>
+<div *ngIf="!!tv" class="main">
+  <div  class="banner" [appPoster]="tv.backdrop_path"></div>
 
   <div class="mb-3 container movie-content">
     <div class="movie-content__poster">
-      <div class="movie-content__poster__img" [appPoster]="film.poster_path"></div>
+      <div class="movie-content__poster__img" [appPoster]="tv.poster_path"></div>
     </div>
     <div class="movie-content__info">
       <h1  class="title">
-        {{film.original_title }}
+        {{tv.original_name }}
       </h1>
       <div class="genres">
-        <span class="genres__item" *ngFor="let item of film.genres ">{{item.name}}</span>
+        <span class="genres__item" *ngFor="let item of tv.genres ">{{item.name}}</span>
       </div>
 
-      <p class="overview">{{film.overview}}</p>
+      <p class="overview">{{tv.overview}}</p>
 
-      <div class="star" >
-        <span [appVote]="film.vote_average"></span>
-        <span class="vote">{{film.vote_average | number :'1.0-2'}}</span>
-        <span  class="vote">( {{film.vote_count}} )</span>
+      <div class="star">
+        <span [appVote]="tv.vote_average"></span>
+        <span class="vote">{{tv.vote_average | number :'1.0-2'}}</span>
+        <span  class="vote">( {{tv.vote_count}} )</span>
       </div>
 
       <div class="detail">
-        <h5>Date: {{film.release_date |date:'y'}}</h5>
-        <h5>Country: {{film.production_countries[0].name}}</h5>
-        <h5>Time: {{film.runtime}} min</h5>
-        <h5 *ngIf="film.budget>0">Budget : {{film.budget | currency :'USD':'symbol':'3.0'}}</h5>
-        <h5 *ngIf="film.revenue>0">WorldWide gross : {{film.revenue | currency:'USD':'symbol':'3.0'}}</h5>
+        <h5>Date:
+          <span>
+             {{tv.first_air_date |date:'y'}}
+          </span>
+          <span *ngIf="tv.last_air_date"> - {{tv.first_air_date |date:'y'}} </span>
+          <span class="text-secondary" *ngIf="tv.in_production"> ...to be continue</span>
+         </h5>
+        <h5>Country: {{tv.origin_country}}</h5>
+        <h5>Seasons: {{tv.number_of_seasons}} </h5>
+        <h5>Episode: {{tv.number_of_episodes}} </h5>
         <h5>Homepage :
-          <a class="text-secondary"  [href]="film.homepage">{{film.homepage}}</a></h5>
-        <h5 *ngIf="film.production_companies.length>0">Studies: {{film.production_companies[0].name}}</h5>
+          <a class="text-secondary"  [href]="tv.homepage">{{tv.homepage}}</a></h5>
+        <h5 *ngIf="tv.networks.length>0">Studies: {{tv.networks[0].name}}</h5>
       </div>
 
       <div class="cast">
@@ -38,7 +43,7 @@
         </div>
         <div class="casts">
           <div *ngFor="let item of casts " class="casts__item" >
-            <div class="casts__item__img" [appPoster]="item.profile_path" [routerLink]="['/','actor',item.id]"></div>
+            <div class="casts__item__img" [appPoster]="item.profile_path"  [routerLink]="['/','actor',item.id]"></div>
             <p class="casts__item__name">{{item.name}}</p>
           </div>
         </div>
@@ -102,7 +107,7 @@
         >
           <ng-template *ngFor="let item of similar" swiperSlide>
             <img [src]="item?.poster_path"  [routerLink]="['/','film',item.id]" alt="">
-            <p class="p">{{item.title}}</p>
+            <p class="p">{{item.original_name}}</p>
           </ng-template>
         </swiper>
 
@@ -111,23 +116,24 @@
 
     <div *ngIf="!!reviews.length" class="section my-4">
       <h2>Reviews</h2>
-          <div *ngFor="let item of reviews" class="review">
-            <div class="image">
-              <img class="rounded-circle" [appImgReview]="item.author_details.avatar_path" alt="">
-            </div>
-              <div class="content">
-                  <div class="detail">
-                    <span>{{item.author}}</span>
-                    <span>{{item.created_at | date:'medium'}}</span>
-                  </div>
-                <div class="det">
-                 {{item.content}}
-                </div>
+      <div *ngFor="let item of reviews" class="review">
+        <div class="image">
+          <img class="rounded-circle" [appImgReview]="item.author_details.avatar_path" alt="">
 
-              </div>
+        </div>
+        <div class="content">
+          <div class="detail">
+            <span>{{item.author}}</span>
+            <span>{{item.created_at | date:'medium'}}</span>
           </div>
+          <div class="det">
+            {{item.content}}
+          </div>
+
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
-
 

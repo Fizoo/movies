@@ -10,7 +10,7 @@ import { SwiperPageComponent } from './components/shared/components/swiper-page/
 import { FilmListComponent } from './components/shared/components/film-list/film-list.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import {HttpClientModule} from "@angular/common/http";
-import { PosterDirective } from './components/shared/components/film-list/poster.directive';
+import { PosterDirective } from './components/shared/directive/poster.directive';
 import { FilmComponent } from './components/pages/film/film.component';
 import { SafePipe } from './components/shared/pipes/safe.pipe';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -18,6 +18,9 @@ import { ActorComponent } from './components/pages/actor/actor.component';
 import { MoviesComponent } from './components/movies/movies.component';
 import { SerialsComponent } from './components/shared/components/serials/serials.component';
 import { SeriesComponent } from './components/serial/serials/series.component';
+import { DetailTVComponent } from './components/serial/detail-tv/detail-tv.component';
+import { VoteDirective } from './components/shared/directive/vote.directive';
+import { ImgReviewDirective } from './components/shared/directive/img-review.directive';
 
 
 
@@ -35,7 +38,10 @@ import { SeriesComponent } from './components/serial/serials/series.component';
     ActorComponent,
     MoviesComponent,
     SerialsComponent,
-    SeriesComponent
+    SeriesComponent,
+    DetailTVComponent,
+    VoteDirective,
+    ImgReviewDirective
   ],
   imports: [
     BrowserModule,

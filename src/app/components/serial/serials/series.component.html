@@ -2,7 +2,7 @@
   <div class="container">
     <div class="film">
       <div *ngFor="let item of listTv">
-        <div [appPoster]="item.poster_path " class="card" [routerLink]="['/film',item.id]" >
+        <div [appPoster]="item.poster_path " class="card" [routerLink]="['/serials',item.id]" >
           <div class="poster">
             <h5 class="year badge rounded-pill text-bg-light">{{item.first_air_date|date:'y'}}</h5>
             <h2 class="title mb-3">{{item.name}}</h2>

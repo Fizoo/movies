@@ -42,7 +42,7 @@ export class FilmService {
     let param = this.api_key
     let changeUrl: string
     if (search.length > 0) {
-      changeUrl = 'search/movie'
+      changeUrl = 'search/multi'
       param = {...param, ...{query: search}}
     } else {
       changeUrl = 'discover/movie'
