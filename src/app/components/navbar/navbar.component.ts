@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FilmService} from "../shared/services/film.service";
 import {FormControl} from "@angular/forms";
-import {debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs";
+import {debounceTime, distinctUntilChanged, map, tap} from "rxjs";
 
 @Component({
   selector: 'app-navbar',
@@ -18,9 +18,14 @@ export class NavbarComponent implements OnInit {
       debounceTime(500),
       map(el=>el.trim()),
       distinctUntilChanged(),
-      switchMap(el=>this.filmService.searchMovie(el)),
-      tap(()=>{
-      //this.filmService.searchMovie(el).subscribe()
+      tap(el=>this.filmService.addSearchParams({query:el})),
+      tap((el)=>{
+        if (!el){
+
+          this.filmService.tempList$.next([])
+          return this.filmService.resetParams()
+
+        }
       }
     )).subscribe()
   }

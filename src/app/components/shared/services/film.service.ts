@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map, Observable, switchMap, tap} from "rxjs";
+import {BehaviorSubject, filter, map, Observable, Subject, switchMap, tap} from "rxjs";
 import {IResponse, RootObject} from "../model/model";
-import {Region, RegionResults} from "../model/region";
 
+interface SearchParams {
+  query?:string
+  page?:number
+  api_key:string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,45 +21,47 @@ export class FilmService {
 
   public params$ = new BehaviorSubject({})
 
-  public paramsSearch$ = new BehaviorSubject({})
+  public page$ = new Subject<number>()
+
+  public paramsSearch$ = new BehaviorSubject<SearchParams|{}>({})
 
   public filmList$ = new BehaviorSubject<RootObject[]>([])
+
+  public tempList$ = new BehaviorSubject<RootObject[]>([])
 
 
   constructor(private http: HttpClient) {
     this.params$.pipe(
       tap(() => {}),
-      switchMap(params => this.getFilm(params)),
+      switchMap(params => {
+       return  this.getFilm(params)
+      }),
       tap(data => this.filmList$.next(data))
     ).subscribe()
+
+    this.paramsSearch$.pipe(
+      tap(),
+      filter((el:any)=>!!el.query),
+      switchMap(params=>{
+        return this.searchMovie(params)
+      })
+    ).subscribe(data => this.filmList$.next(data))
   }
 
   getFilm(params = {}): Observable<RootObject[]> {
     params = {...params, api_key: 'fa87a63435c07bb94de0c84dd44fd194'}
     return this.http.get<IResponse>(`${this.baseUrl}discover/movie`, {params}).pipe(
+      tap(data=> this.page$.next(data.total_pages)),
       map((el: IResponse) => el.results),
-    //  tap(el => console.log(el))
     )
   }
 
-  searchMovie(search: string,page=1): Observable<RootObject[]> {
-    let param = this.api_key
-    let changeUrl: string
-    if (search.length > 0) {
-      changeUrl = 'search/multi'
-      param = {...param, ...{query: search}}
-    } else {
-      changeUrl = 'discover/movie'
-    }
-    return this.http.get<IResponse>(`${this.baseUrl}${changeUrl}`, {params: param}).pipe(
+  searchMovie(params={}): Observable<RootObject[]> {
+    params = {...params, api_key: 'fa87a63435c07bb94de0c84dd44fd194'}
+    return this.http.get<IResponse>(`${this.baseUrl}search/multi`, {params}).pipe(
+      tap(data=>this.page$.next(data.total_pages)),
       map((el: IResponse) => el.results),
       tap(el => this.filmList$.next(el))
-    )
-  }
-
-  getRegions():Observable<RegionResults[]>{
-      return this.http.get<Region>(`${this.baseUrl}watch/providers/regions`,{params: this.api_key}).pipe(
-      map((el: Region) => el.results)
     )
   }
 
@@ -71,12 +77,6 @@ export class FilmService {
     )
   }
 
-  getTopRated(): Observable<RootObject[]> {
-    return this.http.get<IResponse>(`${this.baseUrl}movie/popular}`, {params: this.api_key}).pipe(
-      map((el: IResponse) => el.results)
-    )
-  }
-
   addParams(value= {}) {
     const oldParams = this.params$.getValue()
     if(!!oldParams) {
@@ -88,9 +88,12 @@ export class FilmService {
     return this.params$.next({})
   }
 
-  addSearchParams(value: any) {
+  addSearchParams(value= {}) {
     const oldParams = this.paramsSearch$.getValue()
-    return this.params$.next({...oldParams, ...value})
+    return this.paramsSearch$.next({...oldParams, ...value})
+  }
+  resetSearchParams(){
+    return this.paramsSearch$.next({})
   }
 
 

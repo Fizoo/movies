@@ -36,7 +36,6 @@ export class MoviesComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
    this.aSub= this.filmService.filmList$.subscribe(data=> {
      this.list = data
-     console.log(data)
    })
   }
 // TODO add directive for genres
@@ -76,7 +75,10 @@ export class MoviesComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.aSub.unsubscribe()
+    if(this.aSub){
+      this.aSub.unsubscribe()
+    }
+
   }
 
 
