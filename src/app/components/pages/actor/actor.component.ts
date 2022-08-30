@@ -39,7 +39,7 @@ export class ActorComponent implements OnInit {
              }
              return 1
            })
-           console.log(this.filmList)
+
        }
        )),
        // tap(id => (this.id = +id)),

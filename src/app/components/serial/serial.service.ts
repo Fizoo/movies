@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable, switchMap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {RootTv, RootTvResults} from "./model/root";
 import {DetailTV} from "./model/detail";
@@ -19,16 +19,24 @@ export class SerialService {
 
   public paramsTV$ = new BehaviorSubject({})
 
-  private _serialList$ = new BehaviorSubject<RootTv[]>([])
+  private _serialList$ = new BehaviorSubject<RootTvResults[]>([])
 
   readonly serialList$=this._serialList$.asObservable()
 
-  constructor(private http:HttpClient) {
+  readonly serialTempList$=new BehaviorSubject<RootTvResults[]>([])
 
+  constructor(private http:HttpClient) {
+    this.paramsTV$.pipe(
+      switchMap(el=> this.getTv(el)),
+    ).subscribe(data=>
+      this._serialList$.next(data)
+    )
   }
 
-  getTv():Observable<RootTvResults[]>{
-    return this.http.get<RootTv>(`${this.baseUrl}tv/popular`,{params: this.api_key})
+  getTv(params={}):Observable<RootTvResults[]>{
+    params={...params,...this.api_key}
+
+    return this.http.get<RootTv>(`${this.baseUrl}tv/popular`,{params})
       .pipe(map((el:RootTv) => {
       return  el.results
     }))
@@ -60,6 +68,12 @@ export class SerialService {
       .pipe(map((el: VideoTv) => {
       return  el.results
     }))
+  }
+
+  addParams(page:number){
+    let oldParams=this.paramsTV$.getValue()
+    let newParams={...oldParams,page}
+    return this.paramsTV$.next(newParams)
   }
 
 

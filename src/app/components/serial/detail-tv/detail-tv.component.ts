@@ -7,6 +7,7 @@ import {CreditsTVCast} from "../model/credits";
 import {VideoTvResults} from "../model/video";
 import {SimilarTVResults} from "../model/similar";
 import {ReviewTVResults} from "../model/review";
+import {SeasonEpisodes} from "../model/season";
 
 @Component({
   selector: 'app-detail-tv',
@@ -23,6 +24,7 @@ export class DetailTVComponent implements OnInit {
   videos: VideoTvResults[]
   similar: SimilarTVResults[]
   reviews: ReviewTVResults[]
+  season:SeasonEpisodes[]
 
   constructor(private serialService: SerialService,
               private route: ActivatedRoute
@@ -43,20 +45,19 @@ export class DetailTVComponent implements OnInit {
 
           this.serialService.getSimilarTv(id).subscribe(data=>{
             this.similar = data.map(a => ({...a, poster_path: `http://image.tmdb.org/t/p/w500/${a.poster_path}`}))
-            console.log(data)
+
           })
 
           this.serialService.getReviews(id).subscribe(data=>{
             this.reviews=data
-            console.log(data)
+
           })
+
+
         }),
         tap(id => (this.id = +id)),
         switchMap(id => this.serialService.getDetailTv(id)))
-      .subscribe(data => {
-        this.tv = data
-        console.log(data)
-      })
+      .subscribe(data => this.tv = data)
   }
 
 }

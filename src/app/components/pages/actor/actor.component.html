@@ -16,7 +16,7 @@
           <p *ngIf="!!actor.deathday" class="card-text">Deathday : <span>{{actor.deathday |date}}</span></p>
           <p class="card-text">Place_of_birth :<span> {{actor.place_of_birth}}</span></p>
           <p *ngIf="!!actor.homepage" class="card-text">homepage :<a [href]="actor.homepage">{{actor.homepage}} </a></p>
-          <p class="card-text">Count films: {{filmList.length}}</p>
+          <p class="card-text">Count films: {{filmList?.length}}</p>
         </div>
       </div>
     </div>

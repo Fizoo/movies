@@ -8,6 +8,7 @@ export class PosterDirective implements OnInit{
  @Input('appPoster') img: string
 
   url:string='http://image.tmdb.org/t/p/w500//'
+ // url:string='http://image.tmdb.org/t/p/w500//3V447myclihccqnSiVFVdlnNjZs.jpg'
 
   tempUrl='https://www.beano.com/wp-content/uploads/legacy/88190_logo1-b.jpg?strip=all&quality=86&w=887'
 

@@ -16,11 +16,11 @@ import { SafePipe } from './components/shared/pipes/safe.pipe';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ActorComponent } from './components/pages/actor/actor.component';
 import { MoviesComponent } from './components/movies/movies.component';
-import { SerialsComponent } from './components/shared/components/serials/serials.component';
 import { SeriesComponent } from './components/serial/serials/series.component';
 import { DetailTVComponent } from './components/serial/detail-tv/detail-tv.component';
 import { VoteDirective } from './components/shared/directive/vote.directive';
 import { ImgReviewDirective } from './components/shared/directive/img-review.directive';
+import { BannerDirective } from './components/shared/directive/banner.directive';
 
 
 
@@ -37,11 +37,11 @@ import { ImgReviewDirective } from './components/shared/directive/img-review.dir
     SafePipe,
     ActorComponent,
     MoviesComponent,
-    SerialsComponent,
     SeriesComponent,
     DetailTVComponent,
     VoteDirective,
-    ImgReviewDirective
+    ImgReviewDirective,
+    BannerDirective
   ],
   imports: [
     BrowserModule,

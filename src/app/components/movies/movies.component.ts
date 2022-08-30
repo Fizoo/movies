@@ -19,6 +19,7 @@ export class MoviesComponent implements OnInit,OnDestroy {
   list: RootObject[]=[]
 
   private aSub: Subscription;
+  private bSub: Subscription;
 
   arrYear:number[] =arrDate
   genres:IGenres[]=genres
@@ -29,14 +30,18 @@ export class MoviesComponent implements OnInit,OnDestroy {
   sortName='SortBy'
   yearName='Years';
   countryName='Country'
+  page=1
+  tempList:RootObject[]=[]
 
   constructor(private filmService: FilmService) {
   }
 
   ngOnInit(): void {
    this.aSub= this.filmService.filmList$.subscribe(data=> {
-     this.list = data
+     this.list = [...this.tempList,... data]
    })
+   this.bSub= this.filmService.tempList$.subscribe(data=>this.tempList=data)
+
   }
 // TODO add directive for genres
   getGenres(id: number) {
@@ -78,8 +83,18 @@ export class MoviesComponent implements OnInit,OnDestroy {
     if(this.aSub){
       this.aSub.unsubscribe()
     }
+    if(this.bSub){
+      this.bSub.unsubscribe()
+    }
 
   }
 
 
+  load() {
+    this.page+=1
+    this.filmService.addParams({page:this.page})
+    this.filmService.tempList$.next(this.list)
+
+
+  }
 }

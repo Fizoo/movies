@@ -21,10 +21,8 @@ export class DetailFilmService {
 
   constructor(private http: HttpClient) {
     this.filmId$.pipe(
-      tap(),
       switchMap(id=>this.getDetailFilm(id)),
       tap(data=>this.film$.next(data)),
-      tap(el=>console.log(el))
     ).subscribe()
   }
 

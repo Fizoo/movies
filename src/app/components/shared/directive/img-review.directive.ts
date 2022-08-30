@@ -15,7 +15,6 @@ export class ImgReviewDirective implements OnInit{
   }
 
   getImgRev(value:string):string{
-    console.log('hello')
     if(!!value) {
       let url = value.slice(1)
 
