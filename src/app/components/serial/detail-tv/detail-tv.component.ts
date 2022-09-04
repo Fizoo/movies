@@ -23,7 +23,7 @@ export class DetailTVComponent implements OnInit {
   casts: CreditsTVCast[]
   videos: VideoTvResults[]
   similar: SimilarTVResults[]
-  reviews: ReviewTVResults[]
+  reviews: ReviewTVResults[]=[]
   season:SeasonEpisodes[]
 
   constructor(private serialService: SerialService,

@@ -24,6 +24,7 @@ import { BannerDirective } from './components/shared/directive/banner.directive'
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { BannerDirective } from './components/shared/directive/banner.directive'
     VoteDirective,
     ImgReviewDirective,
     BannerDirective
+
   ],
   imports: [
     BrowserModule,

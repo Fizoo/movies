@@ -6,7 +6,7 @@ import {Directive, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 export class VoteDirective implements OnInit{
 
   votes: number[] = []
-  voteAll: any
+  voteAll: number[]
 
   @Input('appVote') vote: number
 
