@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Subscription} from 'rxjs';
-import {AuthFireService} from "../../auth-fire.service";
+import {AuthFireService} from "../../service/auth-fire.service";
 
 @Component({
   selector: 'app-login',
@@ -38,7 +38,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       checkbox: new FormControl(false, [])
     })
 
-    this.aSub = this.authFire.error$.subscribe(el => this.errorMessage = el)
+    this.aSub = this.authFire.error$.subscribe(el => {
+      console.log('ss')
+      this.errorMessage = el
+    })
   }
 
   onSubmit() {
@@ -66,9 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate(['/'])
           }, 500)
         },
-        error: () => {
-          this.submitted = true
-        }
+        error: () => {}
       }
     )
   }

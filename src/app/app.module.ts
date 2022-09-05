@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, Provider} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SwiperModule } from 'swiper/angular';
 
@@ -9,7 +9,7 @@ import { MainLayoutComponent } from './components/shared/components/main-layout/
 import { SwiperPageComponent } from './components/shared/components/swiper-page/swiper-page.component';
 import { FilmListComponent } from './components/shared/components/film-list/film-list.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { PosterDirective } from './components/shared/directive/poster.directive';
 import { FilmComponent } from './components/pages/film/film.component';
 import { SafePipe } from './components/shared/pipes/safe.pipe';
@@ -21,7 +21,13 @@ import { DetailTVComponent } from './components/serial/detail-tv/detail-tv.compo
 import { VoteDirective } from './components/shared/directive/vote.directive';
 import { ImgReviewDirective } from './components/shared/directive/img-review.directive';
 import { BannerDirective } from './components/shared/directive/banner.directive';
+import {AuthInterceptor} from "./components/shared/auth.interceptor";
 
+const  INTERCEPTOR_PROVIDERS:Provider={
+  provide:HTTP_INTERCEPTORS,
+  multi:true,
+  useClass:AuthInterceptor
+}
 
 
 
@@ -53,7 +59,7 @@ import { BannerDirective } from './components/shared/directive/banner.directive'
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

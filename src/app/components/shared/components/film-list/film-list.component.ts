@@ -7,6 +7,7 @@ import {FilmService} from "../../services/film.service";
 import {RootObject} from "../../model/model";
 import {genres} from "../../../../../assets/data/dataGenres";
 import {regions} from "../../../../../assets/data/dataRegion";
+import { DatabaseService } from 'src/app/admin/service/database.service';
 
 
 @Component({
@@ -37,13 +38,17 @@ export class FilmListComponent implements OnInit, OnDestroy {
 
 
   constructor(private filmService: FilmService,
-              public router: Router
+              public router: Router,
+              private databaseService: DatabaseService
   ) {}
 
   ngOnInit(): void {
+
+
     this.aSub = this.filmService.filmList$.subscribe(el => {
       this.list = [...this.tempList, ...el]
     })
+
 
     this.bSub = this.selectYear.valueChanges.pipe(
       filter(Boolean),
@@ -70,6 +75,9 @@ export class FilmListComponent implements OnInit, OnDestroy {
   }
 
   load() {
+
+    this.databaseService.addFilm(this.list[1]).subscribe()
+
     this.page += 1
 
     this.filmService.tempList$.next(this.list)
@@ -79,7 +87,6 @@ export class FilmListComponent implements OnInit, OnDestroy {
       this.filmService.addSearchParams({page: this.page})
     } else {
       this.filmService.addParams({page: this.page})
-
     }
   }
 

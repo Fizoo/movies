@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Subject, tap, throwError} from "rxjs";
-import {IFbAuthResponse, User} from "./model/firebase";
+import {IFbAuthResponse, User} from "../model/firebase";
 
 
 @Injectable({
@@ -61,6 +61,7 @@ export class AuthFireService {
   }
 
   private handleError(error: HttpErrorResponse) {
+    console.log('hh')
     const {message} = error.error.error
 
     switch (message) {
