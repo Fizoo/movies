@@ -1,0 +1,39 @@
+@use "./../../scss/mixin";
+
+.films{
+  display: flex;
+  flex-wrap: wrap;
+  //justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  @include mixin.tablet{
+    justify-content: center;
+  }
+
+  .card{
+    width: 300px;
+    background: inherit;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 1s ease;
+    &:hover{
+      transform: scale(1.1);
+    }
+    .card-img-top{
+      height: 100%;
+      border-radius: 1rem;
+      object-fit: cover;
+      cursor: pointer;
+
+    }
+    .card-body{
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+
+
+    }
+  }
+}

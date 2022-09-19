@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
-import {RootObject} from "../../components/shared/model/model";
-import {Router} from '@angular/router';
+import {RootObject} from "../model/model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,6 @@ export class DatabaseService {
   public data$=new BehaviorSubject<RootObject[]>([])
 
   constructor(private http:HttpClient,
-              private router:Router
               ) { }
 
   getAll():Observable<RootObject[]>{

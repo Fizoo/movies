@@ -5,6 +5,7 @@ import {debounceTime, distinctUntilChanged, map, Subscription, tap} from "rxjs";
 
 import { Router } from '@angular/router';
 import {AuthFireService} from "../../admin/service/auth-fire.service";
+import {SerialService} from "../serial/serial.service";
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
   constructor(private filmService:FilmService,
               private router:Router,
-              private authFire:AuthFireService
+              private authFire:AuthFireService,
+              private serialService:SerialService
               ) { }
 
   ngOnInit(): void {
@@ -27,7 +29,11 @@ export class NavbarComponent implements OnInit,OnDestroy {
       debounceTime(500),
       map(el=>el.trim()),
       distinctUntilChanged(),
-      tap(el=>this.filmService.addSearchParams({query:el})),
+      tap(el=> {
+        this.filmService.addSearchParams({query: el})
+        this.serialService.searchStr$.next(el)
+       // this.serialService.getSearch({query: el})
+      }),
       tap((el)=>{
         if (!el){
           this.filmService.tempList$.next([])

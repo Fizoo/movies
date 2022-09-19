@@ -7,7 +7,7 @@ import {FilmService} from "../../services/film.service";
 import {RootObject} from "../../model/model";
 import {genres} from "../../../../../assets/data/dataGenres";
 import {regions} from "../../../../../assets/data/dataRegion";
-import { DatabaseService } from 'src/app/admin/service/database.service';
+import { DatabaseService } from 'src/app/components/shared/services/database.service';
 
 
 @Component({
@@ -70,6 +70,7 @@ export class FilmListComponent implements OnInit, OnDestroy {
 
   }
 
+
   getGenres(id: number) {
     return genres.filter(el => el.id === id).map(el => el.name)
   }
@@ -93,4 +94,6 @@ export class FilmListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
+
+
 }

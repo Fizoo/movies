@@ -22,6 +22,8 @@ import { VoteDirective } from './components/shared/directive/vote.directive';
 import { ImgReviewDirective } from './components/shared/directive/img-review.directive';
 import { BannerDirective } from './components/shared/directive/banner.directive';
 import {AuthInterceptor} from "./components/shared/auth.interceptor";
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { GenresDirective } from './components/shared/directive/genres.directive';
 
 const  INTERCEPTOR_PROVIDERS:Provider={
   provide:HTTP_INTERCEPTORS,
@@ -48,7 +50,9 @@ const  INTERCEPTOR_PROVIDERS:Provider={
     DetailTVComponent,
     VoteDirective,
     ImgReviewDirective,
-    BannerDirective
+    BannerDirective,
+    FavoritesComponent,
+    GenresDirective
 
   ],
   imports: [

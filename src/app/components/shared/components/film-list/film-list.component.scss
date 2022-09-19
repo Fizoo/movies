@@ -36,6 +36,7 @@
     grid-template-columns: repeat(auto-fill, 300px);
     gap: 30px;
     justify-content: space-between;
+    position: relative;
     @media (max-width:1400px) {
       justify-content: center;
     }

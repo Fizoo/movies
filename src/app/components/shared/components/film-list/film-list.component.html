@@ -6,7 +6,9 @@
   </div>
 
   <div class="film">
+
     <div *ngFor="let item of list">
+
       <div [appPoster]="item.poster_path " class="card" [routerLink]="['film',item.id]" >
         <div class="poster">
           <h5 class="year badge rounded-pill text-bg-light">{{item.release_date|date:'y'}}</h5>

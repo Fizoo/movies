@@ -8,6 +8,7 @@ import {ActorComponent} from './components/pages/actor/actor.component';
 import {MoviesComponent} from "./components/movies/movies.component";
 import {SeriesComponent} from "./components/serial/serials/series.component";
 import {DetailTVComponent} from "./components/serial/detail-tv/detail-tv.component";
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path: 'movies', component: MoviesComponent},
       {path: 'serials', component: SeriesComponent},
       {path: 'serials/:id', component: DetailTVComponent},
+      {path:'favorite',component:FavoritesComponent}
     ]
   },
   {path:'admin',

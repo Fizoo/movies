@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, map, Observable, switchMap} from "rxjs";
+import {BehaviorSubject, map, Observable, Subject, switchMap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {RootTv, RootTvResults} from "./model/root";
 import {DetailTV} from "./model/detail";
@@ -7,6 +7,8 @@ import {SimilarTV, SimilarTVResults} from "./model/similar";
 import {ReviewTV, ReviewTVResults} from "./model/review";
 import {CreditsTV} from "./model/credits";
 import {VideoTv, VideoTvResults} from "./model/video";
+import {Search} from "./model/search";
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,35 +17,54 @@ export class SerialService {
 
   readonly api_key = {api_key: 'fa87a63435c07bb94de0c84dd44fd194'}
 
+  public searchStr$ = new Subject<string>()
+
   readonly baseUrl = 'https://api.themoviedb.org/3/'
 
   public paramsTV$ = new BehaviorSubject({})
 
   private _serialList$ = new BehaviorSubject<RootTvResults[]>([])
 
-  readonly serialList$=this._serialList$.asObservable()
+  readonly serialList$ = this._serialList$.asObservable()
 
-  readonly serialTempList$=new BehaviorSubject<RootTvResults[]>([])
+  readonly serialTempList$ = new BehaviorSubject<RootTvResults[]>([])
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
+
+
+    this.searchStr$.pipe(
+      switchMap((search: string) => !!search ? this.getSearch({query: search}) : this.getTv(search))
+    ).subscribe((data) => {
+      this._serialList$.next(data)
+    })
+
     this.paramsTV$.pipe(
-      switchMap(el=> this.getTv(el)),
-    ).subscribe(data=>
+      switchMap(el => this.getTv(el)
+      )
+    ).subscribe(data =>
       this._serialList$.next(data)
     )
   }
 
-  getTv(params={}):Observable<RootTvResults[]>{
-    params={...params,...this.api_key}
+  getTv(params = {}): Observable<RootTvResults[]> {
 
-    return this.http.get<RootTv>(`${this.baseUrl}tv/popular`,{params})
-      .pipe(map((el:RootTv) => {
-      return  el.results
-    }))
+    params = {...params, ...this.api_key}
+
+    return this.http.get<RootTv>(`${this.baseUrl}tv/popular`, {params})
+      .pipe(map((el: RootTv) => {
+        return el.results
+      }))
   }
 
-  getDetailTv(id:number):Observable<DetailTV>{
-    return this.http.get<DetailTV>(`${this.baseUrl}tv/${id}`,{params: this.api_key})
+  getSearch(params = {}): Observable<RootTvResults[]> {
+    params = {...params, ...this.api_key}
+    return this.http.get<Search>(`${this.baseUrl}search/tv`, {params}).pipe(
+      map(el => el.results)
+    )
+  }
+
+  getDetailTv(id: number): Observable<DetailTV> {
+    return this.http.get<DetailTV>(`${this.baseUrl}tv/${id}`, {params: this.api_key})
   }
 
   getSimilarTv(id: number): Observable<SimilarTVResults[]> {
@@ -55,7 +76,7 @@ export class SerialService {
   getReviews(id: number): Observable<ReviewTVResults[]> {
     return this.http.get<ReviewTV>(`${this.baseUrl}tv/${id}/reviews`, {params: this.api_key})
       .pipe(map((el: ReviewTV) => {
-        return  el.results
+        return el.results
       }))
   }
 
@@ -66,18 +87,14 @@ export class SerialService {
   getMovieVideo(id: number): Observable<VideoTvResults[]> {
     return this.http.get<VideoTv>(`${this.baseUrl}tv/${id}/videos`, {params: this.api_key})
       .pipe(map((el: VideoTv) => {
-      return  el.results
-    }))
+        return el.results
+      }))
   }
 
-  addParams(page:number){
-    let oldParams=this.paramsTV$.getValue()
-    let newParams={...oldParams,page}
+  addParams(page: number) {
+    let oldParams = this.paramsTV$.getValue()
+    let newParams = {...oldParams, page}
     return this.paramsTV$.next(newParams)
   }
-
-
-
-
 
 }

@@ -1,0 +1,20 @@
+<div class="films">
+  <div *ngFor="let item of favoriteArr" class="card "  [routerLink]="['/','film',item.id]">
+    <img [src]="item.poster_path"
+         [routerLink]="['/','film',item.id]"
+         class="card-img-top" alt="...">
+    <div class="card-img-overlay d-flex  justify-content-between ">
+      <h5 class="year badge rounded-pill text-bg-light align-self-start">{{item.release_date|date:'y'}}</h5>
+      <div class="align-self-start" *ngIf="item.vote_average>0">
+          <span
+            class="card-text badge rounded-pill text-bg-warning h-100 ">{{item.vote_average |  number :'1.0-1'}}</span>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <h5 class="card-text ">{{item.title}}</h5>
+
+    </div>
+  </div>
+
+</div>
