@@ -48,7 +48,6 @@ export class MoviesComponent implements OnInit,OnDestroy {
     return genres.filter(el => el.id === id).map(el => el.name)
   }
 
-
   sortBy(item: SortChild) {
     this.filmService.addParams({sort_by:item.fn,'vote_count.gte':1000})
     this.sortName=item.name
@@ -59,11 +58,9 @@ export class MoviesComponent implements OnInit,OnDestroy {
     this.genreName=item.name
   }
 
-
   selectYear(item: number) {
     this.filmService.addParams({year:item})
     this.yearName=item.toString()
-
   }
 
   selectCountry(item: RegionResults) {
@@ -86,7 +83,6 @@ export class MoviesComponent implements OnInit,OnDestroy {
     if(this.bSub){
       this.bSub.unsubscribe()
     }
-
   }
 
 
@@ -94,7 +90,5 @@ export class MoviesComponent implements OnInit,OnDestroy {
     this.page+=1
     this.filmService.addParams({page:this.page})
     this.filmService.tempList$.next(this.list)
-
-
   }
 }

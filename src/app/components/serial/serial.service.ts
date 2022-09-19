@@ -16,10 +16,9 @@ import {Search} from "./model/search";
 export class SerialService {
 
   readonly api_key = {api_key: 'fa87a63435c07bb94de0c84dd44fd194'}
+  readonly baseUrl = 'https://api.themoviedb.org/3/'
 
   public searchStr$ = new Subject<string>()
-
-  readonly baseUrl = 'https://api.themoviedb.org/3/'
 
   public paramsTV$ = new BehaviorSubject({})
 

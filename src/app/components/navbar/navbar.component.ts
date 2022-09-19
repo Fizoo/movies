@@ -3,7 +3,7 @@ import {FilmService} from "../shared/services/film.service";
 import {FormControl} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, map, Subscription, tap} from "rxjs";
 
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthFireService} from "../../admin/service/auth-fire.service";
 import {SerialService} from "../serial/serial.service";
 
@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
   constructor(private filmService:FilmService,
               private router:Router,
               private authFire:AuthFireService,
-              private serialService:SerialService
+              private serialService:SerialService,
+            
               ) { }
 
   ngOnInit(): void {
@@ -30,9 +31,18 @@ export class NavbarComponent implements OnInit,OnDestroy {
       map(el=>el.trim()),
       distinctUntilChanged(),
       tap(el=> {
-        this.filmService.addSearchParams({query: el})
-        this.serialService.searchStr$.next(el)
-       // this.serialService.getSearch({query: el})
+        let arr= this.router.url.split('/').filter(Boolean)
+        if (!arr.length){
+          this.filmService.addSearchParams({query: el})
+        }
+        else {
+          if(arr.find(el=>el==='movies')){
+            this.filmService.addSearchParams({query: el})
+          }
+          if(arr.find(el=>el==='serials')){
+            this.serialService.searchStr$.next(el)
+          }
+        }
       }),
       tap((el)=>{
         if (!el){
@@ -40,6 +50,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
           return this.filmService.resetParams()
         }
       })).subscribe()
+
+
     this.isAuth=this.authFire.isAuthenticated()
   }
 
