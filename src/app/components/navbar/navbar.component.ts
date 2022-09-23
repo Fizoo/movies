@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
               private router:Router,
               private authFire:AuthFireService,
               private serialService:SerialService,
-            
+
               ) { }
 
   ngOnInit(): void {

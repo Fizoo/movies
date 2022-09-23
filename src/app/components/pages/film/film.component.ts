@@ -11,6 +11,7 @@ import {DetailFilmService} from "../../shared/services/detail-film.service";
 import {ReviewResults} from "../../shared/model/review";
 
 
+
 @Component({
   selector: 'app-film',
   templateUrl: './film.component.html',
@@ -24,6 +25,7 @@ export class FilmComponent implements OnInit {
   similar: SimilarResults[]
   reviews: ReviewResults[]=[]
   videos: VideoResults[]
+  tempImg='../../../../assets/logo/5794a8bc8fb8ca3e824321c07b991929.png'
 
   constructor(private filmService: FilmService,
               private detailFilmService: DetailFilmService,

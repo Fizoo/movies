@@ -33,18 +33,14 @@ export class FilmService {
   constructor(private http: HttpClient) {
     this.params$.pipe(
       tap(() => {}),
-      switchMap(params => {
-       return  this.getFilm(params)
-      }),
+      switchMap(params => this.getFilm(params)),
       tap(data => this.filmList$.next(data))
     ).subscribe()
 
     this.paramsSearch$.pipe(
       tap(),
       filter((el:any)=>!!el.query),
-      switchMap(params=>{
-        return this.searchMovie(params)
-      })
+      switchMap(params=>this.searchMovie(params))
     ).subscribe(data => this.filmList$.next(data))
   }
 

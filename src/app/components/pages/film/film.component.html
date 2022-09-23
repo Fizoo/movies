@@ -101,7 +101,7 @@
           class="similarSwiper"
         >
           <ng-template *ngFor="let item of similar" swiperSlide>
-            <img [src]="item?.poster_path"  [routerLink]="['/','film',item.id]" alt="">
+            <img [src]="item.poster_path || tempImg"  [routerLink]="['/','film',item.id]" alt="">
             <p class="p">{{item.title}}</p>
           </ng-template>
         </swiper>
