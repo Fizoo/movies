@@ -20,25 +20,19 @@ export class FilmService {
   readonly baseUrl = 'https://api.themoviedb.org/3/'
 
   public params$ = new BehaviorSubject({})
-
   public page$ = new Subject<number>()
-
   public paramsSearch$ = new BehaviorSubject<SearchParams|{}>({})
-
   public filmList$ = new BehaviorSubject<RootObject[]>([])
-
   public tempList$ = new BehaviorSubject<RootObject[]>([])
 
 
   constructor(private http: HttpClient) {
     this.params$.pipe(
-      tap(() => {}),
       switchMap(params => this.getFilm(params)),
       tap(data => this.filmList$.next(data))
     ).subscribe()
 
     this.paramsSearch$.pipe(
-      tap(),
       filter((el:any)=>!!el.query),
       switchMap(params=>this.searchMovie(params))
     ).subscribe(data => this.filmList$.next(data))
@@ -73,7 +67,7 @@ export class FilmService {
     )
   }
 
-  addParams(value= {}) {
+  addParams(value = {}) {
     const oldParams = this.params$.getValue()
     if(!!oldParams) {
       return this.params$.next({...oldParams, ...value})
@@ -81,13 +75,14 @@ export class FilmService {
   }
 
   resetParams(){
-    return this.params$.next({})
+   this.params$.next({})
   }
 
   addSearchParams(value= {}) {
     const oldParams = this.paramsSearch$.getValue()
     return this.paramsSearch$.next({...oldParams, ...value})
   }
+
   resetSearchParams(){
     return this.paramsSearch$.next({})
   }

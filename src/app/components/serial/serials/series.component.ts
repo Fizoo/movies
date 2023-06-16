@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RootTvResults} from "../model/root";
 import {SerialService} from '../serial.service';
 import {getGenres} from "../../shared/helper/genres";
-import {Subscription} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-serials',
@@ -13,20 +13,17 @@ export class SeriesComponent implements OnInit,OnDestroy {
 
   listTv: RootTvResults[]=[]
   tempListTv: RootTvResults[]=[]
+  private unsubscribe$ =new Subject<void>()
 
   page=1
-
-  aSub:Subscription
-  bSub:Subscription
 
   constructor(private serialService: SerialService) { }
 
   ngOnInit(): void {
-   this.aSub= this.serialService.serialList$.subscribe(data=>{
+  this.serialService.serialList$.pipe(takeUntil(this.unsubscribe$)).subscribe(data=>{
       this.listTv=[...this.tempListTv,... data]
     })
-
-    this.bSub=this.serialService.serialTempList$.subscribe(data=>this.tempListTv=data)
+   this.serialService.serialTempList$.pipe(takeUntil(this.unsubscribe$)).subscribe(data=>this.tempListTv=data)
 
   }
 
@@ -43,11 +40,7 @@ export class SeriesComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.aSub){
-      this.aSub.unsubscribe()
-    }
-    if(this.bSub){
-      this.bSub.unsubscribe()
-    }
+    this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 }

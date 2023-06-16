@@ -38,9 +38,7 @@ export class DetailFilmService {
 
   getReviews(id: number): Observable<ReviewResults[]> {
     return this.http.get<Review>(`${this.baseUrl}movie/${id}/reviews`, {params: this.api_key})
-      .pipe(map((el: Review) => {
-       return  el.results
-      }))
+      .pipe(map((el: Review) => el.results))
   }
 
   getMovieCredits(id: number): Observable<Credits> {

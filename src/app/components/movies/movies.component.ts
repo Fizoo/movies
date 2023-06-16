@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FilmService} from "../shared/services/film.service";
 import {IGenres, RootObject} from "../shared/model/model";
-import {Subscription} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import {genres} from "../../../assets/data/dataGenres";
 import {arrDate} from "../../../assets/data/dataYear";
 import {regions} from "../../../assets/data/dataRegion";
@@ -17,9 +17,7 @@ import {SortChild} from "../shared/model/sort";
 export class MoviesComponent implements OnInit,OnDestroy {
 
   list: RootObject[]=[]
-
-  private aSub: Subscription;
-  private bSub: Subscription;
+  private unsubscribe$=new Subject<void>()
 
   arrYear:number[] =arrDate
   genres:IGenres[]=genres
@@ -37,13 +35,12 @@ export class MoviesComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
-   this.aSub= this.filmService.filmList$.subscribe(data=> {
+  this.filmService.filmList$.pipe(takeUntil(this.unsubscribe$)).subscribe(data=> {
      this.list = [...this.tempList,... data]
    })
-   this.bSub= this.filmService.tempList$.subscribe(data=>this.tempList=data)
+    this.filmService.tempList$.pipe(takeUntil(this.unsubscribe$)).subscribe(data=>this.tempList=data)
 
   }
-// TODO add directive for genres
   getGenres(id: number) {
     return genres.filter(el => el.id === id).map(el => el.name)
   }
@@ -77,12 +74,8 @@ export class MoviesComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.aSub){
-      this.aSub.unsubscribe()
-    }
-    if(this.bSub){
-      this.bSub.unsubscribe()
-    }
+   this.unsubscribe$.next()
+    this.unsubscribe$.complete()
   }
 
 

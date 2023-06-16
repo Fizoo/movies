@@ -175,11 +175,13 @@
     margin-bottom: 1rem;
 
     .image{
-      width: 100px;
-      //padding: 1rem;
+      width: 90px;
+      height: 90px;
+      padding: 2px;
       img{
         width: 100%;
-       // object-fit: cover;
+        height: 100%;
+        object-fit: cover;
         object-position: center;
 
       }

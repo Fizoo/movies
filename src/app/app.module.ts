@@ -24,6 +24,7 @@ import { BannerDirective } from './components/shared/directive/banner.directive'
 import {AuthInterceptor} from "./components/shared/auth.interceptor";
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { GenresDirective } from './components/shared/directive/genres.directive';
+import { ImgSimilarDirective } from './components/shared/directive/img-similar.directive';
 
 const  INTERCEPTOR_PROVIDERS:Provider={
   provide:HTTP_INTERCEPTORS,
@@ -52,7 +53,8 @@ const  INTERCEPTOR_PROVIDERS:Provider={
     ImgReviewDirective,
     BannerDirective,
     FavoritesComponent,
-    GenresDirective
+    GenresDirective,
+    ImgSimilarDirective
 
   ],
   imports: [

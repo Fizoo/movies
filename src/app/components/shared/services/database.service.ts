@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
+import {catchError, Observable, throwError} from "rxjs";
 import {RootObject} from "../model/model";
 
 @Injectable({
@@ -10,29 +10,21 @@ export class DatabaseService {
 
   readonly url='https://movies-100ae-default-rtdb.firebaseio.com'
 
-  public data$=new BehaviorSubject<RootObject[]>([])
-
   constructor(private http:HttpClient,
               ) { }
 
   getAll():Observable<RootObject[]>{
-   return  this.http.get<RootObject[]>(`${this.url}/favorite.json`).pipe(
-     tap(el=> console.log(el))
-    )
+   return  this.http.get<RootObject[]>(`${this.url}/favorite.json`)
   }
 
   addFilm(film:RootObject):Observable<RootObject>{
     return  this.http.post<RootObject>(`${this.url}/favorite.json`,film).pipe(
-      tap(el=> console.log(el)),
       catchError( (err) => {
         return throwError(err.error)
       })
     )
   }
 
-  deleteFilm(){
-
-  }
 
 
 }

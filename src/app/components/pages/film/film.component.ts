@@ -25,7 +25,7 @@ export class FilmComponent implements OnInit {
   similar: SimilarResults[]
   reviews: ReviewResults[]=[]
   videos: VideoResults[]
-  tempImg='../../../../assets/logo/5794a8bc8fb8ca3e824321c07b991929.png'
+  tempImg='../../../../assets/logo/5794a8bc8fb8ca3e824321c07b991929.jpg'
 
   constructor(private filmService: FilmService,
               private detailFilmService: DetailFilmService,
@@ -34,7 +34,8 @@ export class FilmComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.pipe(map((el: any) => el.id),
+    this.route.params.pipe(
+      map((el: any) => el.id),
       tap(id => {
         this.detailFilmService.filmId$.next(id)
 
@@ -60,8 +61,6 @@ export class FilmComponent implements OnInit {
     })
 
   }
-
-
 
 }
 
